@@ -44,19 +44,17 @@ MENU:
 def start():
     print_menu()
     choice = input("What would you like to perform?")
-    choices = (1,2,3,4,5,6)
-    if choice in choices:
-        if choice == 1 and start_ssh():
-            print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
-        if choice == 2:
-            check_port()
-        if choice == 3:
-            print(get_user())
-        if choice == 4:
-            get_wlan_info()
-        if choice == 5:
-            restart_ssh()
-        if choice == 6:
+    if choice == 1 and start_ssh():
+        print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
+    elif choice == 2:
+        check_port()
+    elif choice == 3:
+        print(get_user())
+    elif choice == 4:
+        get_wlan_info()
+    elif choice == 5:
+        restart_ssh()
+    elif choice == 6:
             exit_program()
     else:
         print('Enter valid choice mate!')
