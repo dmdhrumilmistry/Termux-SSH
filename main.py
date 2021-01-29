@@ -1,7 +1,16 @@
 #!usr/bin/env/python
 
-import user
 import subprocess
+
+def get_user():
+    user = subprocess.check_output(["whoami"])
+    return user
+
+
+def generate_passwd(user):
+    print("[+] Creating password for user")
+    print("Note: You will be asked to enter password, You must enter the same password while connecting.")
+    subprocess.call(["passwd", user])
 
 
 def print_menu():
@@ -35,15 +44,14 @@ MENU:
 def start():
     print_menu()
     choice = input("What would you like to perform?")
-    choices = (1,2,3,4)
+    choices = (1,2,3,4,5,6)
     if choice in choices:
-        if choice == 1:
-            if start_ssh():
-                print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
+        if choice == 1 and start_ssh():
+            print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
         if choice == 2:
             check_port()
         if choice == 3:
-            print(user.get_user())
+            print(get_user())
         if choice == 4:
             get_wlan_info()
         if choice == 5:
@@ -84,3 +92,13 @@ while(check in ('Y','y')):
     check = input('[+] Would you like to continue? (y/n): ')
 
 exit_program()
+
+def get_user():
+    user = subprocess.check_output(["whoami"])
+    return user
+
+
+def generate_passwd(user):
+    print("[+] Creating password for user")
+    print("Note: You will be asked to enter password, You must enter the same password while connecting.")
+    subprocess.call(["passwd", user])

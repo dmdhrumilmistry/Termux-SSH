@@ -1,6 +1,15 @@
 #!usr/bin/env/ python
 import subprocess
-import user
+
+def get_user():
+    user = subprocess.check_output(["whoami"])
+    return user
+
+
+def generate_passwd(user):
+    print("[+] Creating password for user")
+    print("Note: You will be asked to enter password, You must enter the same password while connecting.")
+    subprocess.call(["passwd", user])
 
 
 def install_req():
@@ -25,4 +34,5 @@ A tool Specially Designed for Termux
 
 
 install_req()
-user.generate_passwd(user.get_user())
+generate_passwd(get_user())
+
