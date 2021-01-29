@@ -83,4 +83,4 @@ while(check in ('Y','y')):
     start()
     check = input('[+] Would you like to continue? (y/n): ')
 
-
+exit_program()
