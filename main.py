@@ -43,7 +43,7 @@ MENU:
 
 def start():
     print_menu()
-    choice = input("What would you like to perform?")
+    choice = int(input("What would you like to perform?"))
     if choice == 1 and start_ssh():
         print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
     elif choice == 2:
