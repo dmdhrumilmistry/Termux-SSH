@@ -2,6 +2,19 @@
 
 
 # Termux-SSH
+```
+------------------------------------------------------------
+ _____                                _____ _____ _   _ 
+|_   _|                              /  ___/  ___| | | |
+  | | ___ _ __ _ __ ___  _   ___  __ \ `--.\ `--.| |_| |
+  | |/ _ \ '__| '_ ` _ \| | | \ \/ /  `--. \`--. \  _  |
+  | |  __/ |  | | | | | | |_| |>  <  /\__/ /\__/ / | | |
+  \_/\___|_|  |_| |_| |_|\__,_/_/\_\ \____/\____/\_| |_/
+                                A tool by Dhrumil Mistry
+------------------------------------------------------------
+~~~~~~~~~~ A tool Specially Designed for Termux ~~~~~~~~~~~~
+------------------------------------------------------------
+```
 Termux SSH helps you to setup SSH server on termux application on android, which helps you to execute tasks remotely.
 
 ## 
@@ -62,6 +75,10 @@ Termux SSH helps you to setup SSH server on termux application on android, which
   
   
   ##
+  
+  ### Video Tutorial
+  
+  <a href = "https://www.youtube.com/watch?v=V_m3vHmOY3c" target = "_blank"><img src = "https://img.shields.io/badge/YouTube%20Video-For%20video%20click%20here-bd2c00"></a><br>
   
   ### Support Me on:
   
