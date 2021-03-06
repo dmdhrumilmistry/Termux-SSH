@@ -1,10 +1,11 @@
-#!usr/bin/env/python
+#!usr/bin/env/python3
 
+from colors import color
 import subprocess
 
 def get_user():
     user = subprocess.check_output(["whoami"])
-    return user
+    return (user.decode('utf-8'))
 
 
 def generate_passwd(user):
@@ -15,7 +16,7 @@ def generate_passwd(user):
 
 def print_menu():
     subprocess.call(["clear"])
-    print("""
+    print(color.WARNING,"""
 ------------------------------------------------------------
  _____                                _____ _____ _   _ 
 |_   _|                              /  ___/  ___| | | |
@@ -36,29 +37,10 @@ MENU:
 [6] - exit
 ------------------------------------------------------------
 [*] How to connect to termux terminal using cmd command:
-1. <user>@<wlan0_inet> -p <port>
+1. ssh <user>@<wlan0_inet> -p <port>
 2. Enter password for user
 ------------------------------------------------------------
     """)
-
-def start():
-    print_menu()
-    choice = int(input("What would you like to perform?"))
-    if choice == 1 and start_ssh():
-        print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
-    elif choice == 2:
-        check_port()
-    elif choice == 3:
-        print(get_user())
-    elif choice == 4:
-        get_wlan_info()
-    elif choice == 5:
-        restart_ssh()
-    elif choice == 6:
-            exit_program()
-    else:
-        print('Enter valid choice mate!')
-
 
 def start_ssh():
     subprocess.call(["sshd"])
@@ -84,12 +66,6 @@ def restart_ssh():
 def exit_program():
     subprocess.call(["pkill","ssh"])
 
-check = 'y'
-while(check in ('Y','y')):
-    start()
-    check = input('[+] Would you like to continue? (y/n): ')
-
-exit_program()
 
 def get_user():
     user = subprocess.check_output(["whoami"])
@@ -100,3 +76,42 @@ def generate_passwd(user):
     print("[+] Creating password for user")
     print("Note: You will be asked to enter password, You must enter the same password while connecting.")
     subprocess.call(["passwd", user])
+
+
+def start():
+    print_menu()
+    choice = int(input("What would you like to perform? "))
+    if choice == 1:
+        try :
+            start_ssh()
+            print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
+        except:
+            print('[-] Error while starting SSH')
+    elif choice == 2:
+        check_port()
+    elif choice == 3:
+        print(get_user())
+    elif choice == 4:
+        get_wlan_info()
+    elif choice == 5:
+        restart_ssh()
+    elif choice == 6:
+            exit_program()
+    else:
+        print('Enter valid choice mate!\n')
+
+
+
+# Driver Code
+try:
+    while(True):
+        start()
+        print('[+] To "EXIT" use control+c')
+        try:
+            pause = input('[+] Press ENTER(return) key to continue')
+        except:
+            continue
+except:
+    print(color.FAIL, "\n[-] Interuppted....\nExiting Programming......\n")
+finally:
+    exit_program()
