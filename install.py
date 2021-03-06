@@ -1,5 +1,7 @@
-#!usr/bin/env/ python
+#!usr/bin/env/ python3
+
 import subprocess
+from colors import color
 
 def get_user():
     user = subprocess.check_output(["whoami"])
@@ -13,7 +15,7 @@ def generate_passwd(user):
 
 
 def install_req():
-    print("""
+    print(color.WARNING,"""
 ------------------------------------------------------------
  _____                                _____ _____ _   _ 
 |_   _|                              /  ___/  ___| | | |
@@ -35,4 +37,3 @@ A tool Specially Designed for Termux
 
 install_req()
 generate_passwd(get_user())
-
