@@ -40,12 +40,12 @@ Termux SSH helps you to setup SSH server on termux application on android, which
    
 5. Run install python file
    ```
-   $ python install.py
+   $ python3 install.py
    ```
    
 6. Run main python file
    ```
-   $ python main.py
+   $ python3 main.py
    ```
    
    If script executes without any error then Termux-SSH has been installed successfully
