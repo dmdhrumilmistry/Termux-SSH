@@ -84,10 +84,10 @@ def start_ssh():
 
 def check_port():
     if start_ssh():
-        print(str(subprocess.check_output(["nmap", "localhost"])))
+        print(subprocess.check_output(["nmap", "localhost"]).decode('utf-8'))
 
 def get_wlan_info():
-    print(str(subprocess.check_output(["ifconfig","wlan0"])))
+    print(subprocess.check_output(["ifconfig","wlan0"]).decode('utf-8'))
 
 
 def restart_ssh():

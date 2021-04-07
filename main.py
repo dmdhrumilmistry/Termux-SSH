@@ -2,9 +2,13 @@
 from termux import start, start_ssh, check_port, get_wlan_info, restart_ssh, exit_program 
 
 
-check = 'y'
-while(check in ('Y','y')):
+IS_RUNNING = True
+while(IS_RUNNING):
     start()
-    check = input('[+] Would you like to continue? (y/n): ')
+    check = input('[+] Press Any Key to continue, to exit enter 6:')
+    if check == '6':
+        IS_RUNNING = False
+    
 
+print('[+] Exiting... Please be patient...')
 exit_program()
