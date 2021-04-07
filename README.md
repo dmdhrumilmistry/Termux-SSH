@@ -38,14 +38,19 @@ Termux SSH helps you to setup SSH server on termux application on android, which
    $ cd Termux-ssh
    ```
    
-5. Run install python file
+5. install required packages
    ```
-   $ python install.py
+   $ python3 -m pip install colorama
    ```
    
-6. Run main python file
+6. Run install python file
    ```
-   $ python main.py
+   $ python3 install.py
+   ```
+
+7. Run main python file
+   ```
+   $ python3 main.py
    ```
    
    If script executes without any error then Termux-SSH has been installed successfully
