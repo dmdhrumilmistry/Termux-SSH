@@ -66,9 +66,10 @@ def install_req():
     print(Fore.YELLOW + '[+] Installation completed!!')
 
 
-def start():
-    print_menu()
-    choice = int(input("What would you like to perform?"))
+def start(choice):
+    
+    if choice == 0:
+        print(Style.BRIGHT + '[+] Script has been started Successfully!')
     if choice == 1 and start_ssh():
         print(Style.BRIGHT + '[+] SSH server has been started successfully!')
         print(Style.BRIGHT + Fore.YELLOW + 'NOTE: Default Port in most cases 8022')
@@ -83,7 +84,7 @@ def start():
     elif choice == 6:
             exit_program()
     else:
-        print(Fore.RED + 'Enter valid choice mate!')
+        print(Fore.RED + Style.BRIGHT + 'Enter valid choice mate!')
 
 
 def start_ssh():
@@ -106,6 +107,11 @@ def restart_ssh():
     if start_ssh():
         print('[+] SSH Server Successfully Started.')
 
+
+def Exception_Message(Exception):
+    print(Fore.RED + Style.BRIGHT + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
+    print('[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
+    raise Exception
 
 def exit_program():
     subprocess.call(["pkill","ssh"])
