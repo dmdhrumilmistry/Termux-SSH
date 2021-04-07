@@ -58,7 +58,7 @@ def install_req():
     subprocess.call(["apt", "install", "nmap", "openssh", "-y"])
 
 
-def start():
+def start(choice):
     print_menu()
     choice = int(input("What would you like to perform?"))
     if choice == 1 and start_ssh():

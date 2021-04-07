@@ -4,10 +4,15 @@ from termux import start, start_ssh, check_port, get_wlan_info, restart_ssh, exi
 
 IS_RUNNING = True
 while(IS_RUNNING):
-    start()
-    check = input('[+] Press Any Key to continue, to exit enter 6:')
-    if check == '6':
-        IS_RUNNING = False
+    try:
+        start()
+        check = choice = int(input("[+] Command >"))
+        if check == '6':
+            IS_RUNNING = False
+    except Exception:
+        print("[-] An Error Occured, Report to developer by creating an issue on github.")
+        print("[+] github repository url: https://github.com/dmdhrumilmistry/Termux-SSH")
+        raise Exception
     
 
 print('[+] Exiting... Please be patient...')
