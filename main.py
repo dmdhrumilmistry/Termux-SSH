@@ -1,5 +1,5 @@
 #!usr/bin/env python3
-from termux import start, start_ssh, check_port, get_wlan_info, restart_ssh, exit_program 
+from termux import start, exit_program 
 
 
 IS_RUNNING = True
