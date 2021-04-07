@@ -77,7 +77,7 @@ def start(choice):
     else:
         print('Enter valid choice mate!')
     
-    input("[+] Press Any Key to continue")
+    input("\n\n[+] Press Any Key to continue")
 
 
 def start_ssh():
