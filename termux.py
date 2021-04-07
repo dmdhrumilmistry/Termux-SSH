@@ -59,7 +59,7 @@ def install_req():
 
 
 def start(choice):
-    print_menu()
+    
     if choice == 0:
         print("[+] Script Started Successfully...")
     if choice == 1 and start_ssh():
@@ -76,6 +76,8 @@ def start(choice):
             exit_program()
     else:
         print('Enter valid choice mate!')
+    
+    input("[+] Press Any Key to continue")
 
 
 def start_ssh():
