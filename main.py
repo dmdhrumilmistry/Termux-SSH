@@ -8,8 +8,7 @@ while(IS_RUNNING):
         print_menu()
         choice = int(input("[+] Command > "))
         start(choice)
-        check = input('[+] Press Any Key to continue, to exit enter 6:')
-        if check == '6':
+        if choice == 6:
             IS_RUNNING = False
 
     except Exception as e:
