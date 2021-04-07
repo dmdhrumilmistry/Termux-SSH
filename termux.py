@@ -44,7 +44,7 @@ def get_user():
 
 
 def generate_passwd(user):
-    print("[+] Creating password for user")
+    print("\n[+] Create password for user : ")
     print("Note: You will be asked to enter password, You must enter the same password while connecting.")
     subprocess.call(["passwd", user])
 
@@ -53,9 +53,14 @@ def install_req():
     banner()
     print('[+] Installing required packages')
     print('------------------------------------------------------------')
+    print('[+] Updating...'])
     subprocess.call(["apt", "update"])
+    print('[+] Upgrading...'])
     subprocess.call(["apt", "upgrade"])
-    subprocess.call(["apt", "install", "nmap", "openssh", "-y"])
+    print('[+] Installing requirements...')
+    subprocess.call(["apt", "install", "nmap", "openssh", "python3", "python3-pip", "-y"])
+    subprocess.call(["python3", "-m", "pip", "install", "colorama"])
+    print('[+] Installation completed!!')
 
 
 def start():
