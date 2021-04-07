@@ -68,8 +68,6 @@ def install_req():
 
 def start(choice):
     
-    if choice == 0:
-        print(Style.BRIGHT + '[+] Script has been started Successfully!')
     if choice == 1 and start_ssh():
         print(Style.BRIGHT + '[+] SSH server has been started successfully!')
         print(Style.BRIGHT + Fore.YELLOW + 'NOTE: Default Port in most cases 8022')
