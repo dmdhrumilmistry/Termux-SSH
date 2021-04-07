@@ -84,6 +84,7 @@ def start(choice):
     else:
         print(Fore.RED + Style.BRIGHT + 'Enter valid choice mate!')
 
+    input("[+] Press any key to continue....")
 
 def start_ssh():
     subprocess.call(["sshd"])
@@ -108,7 +109,7 @@ def restart_ssh():
 
 def Exception_Message(Exception):
     print(Fore.RED + Style.BRIGHT + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
-    print('[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
+    print(Fore.YELLOW + Style.BRIGHT + '[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
     raise Exception
 
 def exit_program():
