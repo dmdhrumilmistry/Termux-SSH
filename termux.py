@@ -1,10 +1,13 @@
 #!usr/bin/env python3
 
 import subprocess
+import colorama
+from colorama import Style, Fore
+colorama.init(autoreset=True)
 
 
 def banner():
-      print("""
+      print(Fore.GREEN + Style.BRIGHT +  """
 ------------------------------------------------------------
  _____                                _____ _____ _   _ 
 |_   _|                              /  ___/  ___| | | |
@@ -22,7 +25,7 @@ A tool Specially Designed for Termux
 def print_menu():
     subprocess.call(["clear"])
     banner()
-    print("""
+    print(Fore.WHITE + Style.BRIGHT + """
 MENU:
 [1] - Start SSH server
 [2] - check port on which server is running
@@ -44,25 +47,30 @@ def get_user():
 
 
 def generate_passwd(user):
-    print("[+] Creating password for user")
-    print("Note: You will be asked to enter password, You must enter the same password while connecting.")
+    print(Style.BRIGHT + "\n[+] Create password for user : ")
+    print(Style.BRIGHT + Fore.YELLOW +"Note: You will be asked to enter password, You must enter the same password while connecting.")
     subprocess.call(["passwd", user])
 
 
 def install_req():
     banner()
-    print('[+] Installing required packages')
+    print(Fore.YELLOW + '[+] Installing required packages')
     print('------------------------------------------------------------')
+    print(Fore.YELLOW + '[+] Updating...')
     subprocess.call(["apt", "update"])
+    print(Fore.YELLOW + '[+] Upgrading...')
     subprocess.call(["apt", "upgrade"])
-    subprocess.call(["apt", "install", "nmap", "openssh", "-y"])
+    print(Fore.YELLOW + '[+] Installing requirements...')
+    subprocess.call(["apt", "install", "nmap", "openssh", "python3", "python3-pip", "-y"])
+    subprocess.call(["python3", "-m", "pip", "install", "colorama"])
+    print(Fore.YELLOW + '[+] Installation completed!!')
 
 
-def start():
-    print_menu()
-    choice = int(input("What would you like to perform?"))
+def start(choice):
+    
     if choice == 1 and start_ssh():
-        print('[+] SSH server has been successfully started \nNOTE: Default Port in most cases 8022')
+        print(Style.BRIGHT + '[+] SSH server has been started successfully!')
+        print(Style.BRIGHT + Fore.YELLOW + 'NOTE: Default Port in most cases 8022')
     elif choice == 2:
         check_port()
     elif choice == 3:
@@ -74,8 +82,9 @@ def start():
     elif choice == 6:
             exit_program()
     else:
-        print('Enter valid choice mate!')
+        print(Fore.RED + Style.BRIGHT + 'Enter valid choice mate!')
 
+    input("[+] Press any key to continue....")
 
 def start_ssh():
     subprocess.call(["sshd"])
@@ -93,11 +102,17 @@ def get_wlan_info():
 def restart_ssh():
     check_port()
     subprocess.call(["pkill","ssh"])
-    print('[+] SSH Server Successfully Killed.')
+    print(Style.BRIGHT + '[+] SSH Server Successfully Killed.')
     if start_ssh():
-        print('[+] SSH Server Successfully Started.')
+        print(Style.BRIGHT + '[+] SSH Server Successfully Started.')
 
+
+def Exception_Message(Exception):
+    print(Fore.RED + Style.BRIGHT + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
+    print(Fore.YELLOW + Style.BRIGHT + '[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
+    raise Exception
 
 def exit_program():
+    print(Fore.YELLOW + Style.BRIGHT + '[+] Exiting Program... Please be patient...')
     subprocess.call(["pkill","ssh"])
 
