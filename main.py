@@ -6,7 +6,7 @@ IS_RUNNING = True
 while(IS_RUNNING):
     try:
         print_menu()
-        choice = int(input("[+] Command >"))
+        choice = int(input("[+] Command > "))
         start(choice)
 
         if choice == 6:
