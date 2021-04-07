@@ -15,5 +15,4 @@ while(IS_RUNNING):
         Exception_Message(e)
     
 
-print('[+] Exiting... Please be patient...')
 exit_program()

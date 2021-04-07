@@ -102,9 +102,9 @@ def get_wlan_info():
 def restart_ssh():
     check_port()
     subprocess.call(["pkill","ssh"])
-    print('[+] SSH Server Successfully Killed.')
+    print(Style.BRIGHT + '[+] SSH Server Successfully Killed.')
     if start_ssh():
-        print('[+] SSH Server Successfully Started.')
+        print(Style.BRIGHT + '[+] SSH Server Successfully Started.')
 
 
 def Exception_Message(Exception):
@@ -113,5 +113,6 @@ def Exception_Message(Exception):
     raise Exception
 
 def exit_program():
+    print(Fore.YELLOW + Style.BRIGHT + '[+] Exiting Program... Please be patient...')
     subprocess.call(["pkill","ssh"])
 
