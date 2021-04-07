@@ -40,7 +40,7 @@ MENU:
 
 def get_user():
     user = subprocess.check_output(["whoami"])
-    return user
+    return user.decode('utf-8')
 
 
 def generate_passwd(user):
