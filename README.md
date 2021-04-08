@@ -30,12 +30,12 @@ Termux SSH helps you to setup SSH server on termux application on android, which
    
 3. copy the url from the address bar and clone the Termux-SSH
    ```
-   $ git clone https://github.com/dmdhrumilmistry/termux-ssh
+   $ git clone https://github.com/dmdhrumilmistry/Termux-SSH
    ```
    
 4. Change to Termux-ssh directory
    ```
-   $ cd Termux-ssh
+   $ cd Termux-SSH
    ```
    
 5. install required packages
