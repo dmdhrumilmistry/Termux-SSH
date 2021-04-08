@@ -60,7 +60,10 @@ def install_req():
     print(Fore.YELLOW + '[+] Upgrading...')
     subprocess.call(["pkg", "upgrade"])
     print(Fore.YELLOW + '[+] Installing requirements ...')
-    subprocess.call(["pkg", "install", "nmap", "openssh", "python", "python","termux-auth" , "termux-api", "-y"])
+    subprocess.call(["pkg", "install", "nmap", "-y"])
+    subprocess.call(["pkg", "install", "openssh", "-y"]) 
+    subprocess.call(["pkg", "install", "termux-auth", "-y"])
+    subprocess.call(["pkg", "install", "termux-api", "-y"])
     subprocess.call(["python", "-m", "pip", "install", "colorama"])
     print(Fore.YELLOW + '[+] Installation completed!!')
 
