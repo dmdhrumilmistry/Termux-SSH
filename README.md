@@ -73,8 +73,11 @@ Termux SSH helps you to setup SSH server on termux application on android, which
    **`Termux-SSH`** requires following programs to run properly -
    - `Python`
       - `subprocess module`
+      - `colorama`
    - `OpenSSH`
    - `Nmap`
+   - `termux-api`
+   - `termux-auth`
    
    > All the dependencies will be installed automatically when you run install.py script
   
