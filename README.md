@@ -23,32 +23,37 @@ Termux SSH helps you to setup SSH server on termux application on android, which
 
 1. Open Termux terminal
 
-2. Install git package
+2. Install Python
+   ```
+   $ pkg install python
+   ```
+
+3. Install git package
    ```
    $ pkg install git
    ```
    
-3. copy the url from the address bar and clone the Termux-SSH
+4. copy the url from the address bar and clone the Termux-SSH
    ```
    $ git clone https://github.com/dmdhrumilmistry/Termux-SSH
    ```
    
-4. Change to Termux-ssh directory
+5. Change to Termux-ssh directory
    ```
    $ cd Termux-SSH
    ```
    
-5. install required packages
+6. install required packages
    ```
    $ python3 -m pip install colorama
    ```
    
-6. Run install python file
+7. Run install python file
    ```
    $ python3 install.py
    ```
 
-7. Run main python file
+8. Run main python file
    ```
    $ python3 main.py
    ```
