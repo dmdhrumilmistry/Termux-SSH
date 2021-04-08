@@ -55,14 +55,13 @@ def generate_passwd(user):
 def install_req():
     banner()
     print(Fore.YELLOW + '[+] Installing required packages')
-    print('------------------------------------------------------------')
     print(Fore.YELLOW + '[+] Updating...')
-    subprocess.call(["apt", "update"])
+    subprocess.call(["pkg", "update"])
     print(Fore.YELLOW + '[+] Upgrading...')
-    subprocess.call(["apt", "upgrade"])
-    print(Fore.YELLOW + '[+] Installing requirements...')
-    subprocess.call(["apt", "install", "nmap", "openssh", "python3", "python3-pip", "-y"])
-    subprocess.call(["python3", "-m", "pip", "install", "colorama"])
+    subprocess.call(["pkg", "upgrade"])
+    print(Fore.YELLOW + '[+] Installing requirements ...')
+    subprocess.call(["pkg", "install", "nmap", "openssh", "python", "python","termux-auth" , "termux-api", "-y"])
+    subprocess.call(["python", "-m", "pip", "install", "colorama"])
     print(Fore.YELLOW + '[+] Installation completed!!')
 
 
