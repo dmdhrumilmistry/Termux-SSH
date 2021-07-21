@@ -12,6 +12,7 @@ BRIGHT_WHITE = Style.BRIGHT + Fore.WHITE
 BRIGHT_YELLOW = Style.BRIGHT + Fore.YELLOW
 BRIGHT_RED = Style.BRIGHT + Fore.RED
 BRIGHT_GREEN = Style.BRIGHT + Fore.GREEN
+BRIGHT_LYELLOW = Style.BRIGHT + Fore.LIGHTYELLOW_EX
 RESET_COLORS = Style.RESET_ALL
 
 
@@ -187,4 +188,4 @@ def show_connect_command():
     print(BRIGHT_WHITE +f'[+] PORT : {ssh_port}')
 
     print(BRIGHT_WHITE +'Use below command to connect:')
-    print(BRIGHT_YELLOW + f'ssh {user}@{wlan_ip} -p {ssh_port}')
+    print(BRIGHT_LYELLOW + f'ssh {user}@{wlan_ip} -p {ssh_port}\n')

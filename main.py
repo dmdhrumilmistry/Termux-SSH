@@ -9,6 +9,7 @@ if name == 'nt':
     exit()
 
 
+clear_console()
 banner()
 print(BRIGHT_YELLOW + "[Note] Termux-SSH only works in Termux Android Application.")
 
