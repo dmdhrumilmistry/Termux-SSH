@@ -1,10 +1,10 @@
 #!usr/bin/env python3
-from prettytable import PrettyTable
 import subprocess
 import colorama
 import re
+from prettytable import PrettyTable
 from colorama import Style, Fore
-
+from sys import exit
 
 # for terminal colors
 colorama.init(autoreset=True)
@@ -28,7 +28,10 @@ menu.add_row(['exit','stops ssh server and exit'])
 
 
 def banner():
-      print(BRIGHT_GREEN +  """
+    '''
+    description: prints banner
+    '''
+    print(BRIGHT_GREEN +  """
 -------------------------------------------------------------
 | _____                                _____ _____ _   _    |
 ||_   _|                              /  ___/  ___| | | |   |
@@ -44,14 +47,24 @@ def banner():
 
 
 def help():
+    '''
+    description: prints help menu commands
+    '''
     print(menu)
 
 
 def get_user():
+    '''
+    description: get username of the termux user
+    returns: username(str)
+    '''
     return subprocess.check_output("whoami", shell=True).decode('utf-8').strip()
 
 
 def generate_passwd():
+    '''
+    description: create new password for the termux user
+    '''
     user = get_user()
     print(BRIGHT_WHITE + f"\n[!] Creating new password for user {user} ")
     print(BRIGHT_YELLOW  +"Note: You will be asked to enter password, You must enter the same password while connecting.")
@@ -59,6 +72,9 @@ def generate_passwd():
 
 
 def install_termux_req():
+    '''
+    description: installs requirements
+    '''
     banner()
     print(BRIGHT_YELLOW + '\n[+] Installing required packages')
     
@@ -75,14 +91,23 @@ def install_termux_req():
 
 
 def start_ssh():
+    '''
+    description: starts ssh server
+    returns: bool
+    '''
     try:
         subprocess.call("sshd", shell=True)
         return True
     except Exception as e:
         Exception_Message(e)
+        return False
 
 
 def get_ssh_port():
+    '''
+    description: get ssh server port
+    returns: str or None
+    '''
     if start_ssh():
         port_result = subprocess.check_output("nmap localhost", shell=True).decode('utf-8')
         port_regex = r'(.*)(?:open\s*oa-system)'
@@ -92,6 +117,10 @@ def get_ssh_port():
 
 
 def get_wlan_ip():
+    '''
+    description: get wlan0 device ip assigned by router/DHCP
+    returns: str or None
+    '''
     wlan_info = subprocess.check_output("ifconfig wlan0", shell=True).decode('utf-8')
     wlan_inet_regex = r'(?:inet\s*)(.*)(?:netmask)'
     wlan_inet_ip = re.search(wlan_inet_regex, wlan_info).group(1).strip()
@@ -99,8 +128,12 @@ def get_wlan_ip():
 
 
 def kill_ssh():
+    '''
+    description: kills ssh server
+    returns: bool
+    '''
     try:
-        subprocess.call("pkill ssh", shell=True)
+        subprocess.call("pkill sshd", shell=True)
         return True
     except Exception as e:
         Exception_Message(e)
@@ -108,6 +141,9 @@ def kill_ssh():
 
 
 def restart_ssh():
+    '''
+    description: restarts ssh server
+    '''
     if kill_ssh():
         print(Style.BRIGHT + '[+] SSH Server Successfully Killed.')
     if start_ssh():
@@ -115,17 +151,27 @@ def restart_ssh():
 
 
 def Exception_Message(Exception):
+    '''
+    description: handles exception by printing message and exception
+    '''
     print(BRIGHT_RED + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
     print(BRIGHT_YELLOW + '[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
     print(BRIGHT_RED + Exception)
 
 
 def exit_program():
+    '''
+    description: closes ssh server and exits the program
+    '''
     print(BRIGHT_RED + '[+] Exiting Program... Please be patient...')
     kill_ssh()
+    exit()
 
 
 def show_connect_command():
+    '''
+    description: prints ssh command to help user to connect to the Termux terminal
+    '''
     user = get_user()
     wlan_ip = get_wlan_ip()
     ssh_port = get_ssh_port()
