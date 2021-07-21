@@ -2,6 +2,7 @@
 
 import subprocess
 import colorama
+import re
 from colorama import Style, Fore
 colorama.init(autoreset=True)
 
@@ -95,7 +96,9 @@ def start_ssh():
 
 def check_port():
     if start_ssh():
-        print(subprocess.check_output(["nmap", "localhost"]).decode('utf-8'))
+        nmap_output = subprocess.check_output(["nmap", "localhost"]).decode('utf-8')
+        print(nmap_output)
+        return nmap_output
 
 def get_wlan_info():
     print(subprocess.check_output(["ifconfig","wlan0"]).decode('utf-8'))
@@ -118,3 +121,9 @@ def exit_program():
     print(Fore.YELLOW + Style.BRIGHT + '[+] Exiting Program... Please be patient...')
     subprocess.call(["pkill","ssh"])
 
+
+def show_connect():
+    port_result = check_port()
+    port_regex = r'(.*)(?:open\s*oa-system)'
+    port = re.search(port_regex, port_result)
+    print(port)
