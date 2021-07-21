@@ -17,7 +17,11 @@
 ```
 Termux SSH helps you to setup SSH server on termux application on android, which helps you to execute tasks remotely.
 
-## 
+### Screenshot
+<p align="center">
+  <img src="https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/Termux-SSH-Android-crop.jpg?raw=true" alt="Termux-SSH UI" />
+</p>
+
 
 ### Installation
 
