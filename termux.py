@@ -60,18 +60,18 @@ def generate_passwd():
 
 def install_termux_req():
     banner()
-    print(BRIGHT_YELLOW + '[+] Installing required packages')
+    print(BRIGHT_YELLOW + '\n[+] Installing required packages')
     
-    print(BRIGHT_YELLOW + '[+] Updating...')
+    print(BRIGHT_YELLOW + '\n[+] Updating...')
     subprocess.call("pkg update -y", shell=True)
     
-    print(BRIGHT_YELLOW + '[+] Upgrading...')
+    print(BRIGHT_YELLOW + '\n[+] Upgrading...')
     subprocess.call("pkg upgrade -y", shell=True)
     
-    print(BRIGHT_YELLOW + '[+] Installing requirements ...')
+    print(BRIGHT_YELLOW + '\n[+] Installing requirements ...')
     subprocess.call("pkg install nmap openssh termux-auth termux-api -y", shell=True)
     
-    print(BRIGHT_YELLOW + '[+] Installation completed!!')
+    print(BRIGHT_YELLOW + '\n[+] Installation completed!!\n')
 
 
 def start_ssh():
@@ -100,7 +100,7 @@ def get_wlan_ip():
 
 def kill_ssh():
     try:
-        subprocess.call(["pkill","ssh"], shell=True)
+        subprocess.call("pkill ssh", shell=True)
         return True
     except Exception as e:
         Exception_Message(e)
@@ -135,5 +135,5 @@ def show_connect_command():
     print(BRIGHT_WHITE +f'[+] IP : {wlan_ip}')
     print(BRIGHT_WHITE +f'[+] PORT : {ssh_port}')
 
-    print(BRIGHT_WHITE +'Connect to this device wirelessly using below command in terminal:')
+    print(BRIGHT_WHITE +'Use below command to connect:')
     print(BRIGHT_YELLOW + f'ssh {user}@{wlan_ip} -p {ssh_port}')
