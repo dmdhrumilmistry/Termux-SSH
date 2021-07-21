@@ -26,25 +26,27 @@ menu.add_row(['genpass', 'generates new password for user'])
 menu.add_row(['wlan ip', 'get wlan ip of the device'])
 menu.add_row(['connect cmd', 'connect to this using using command printed'])
 menu.add_row(['restart', 'restarts ssh server'])
+menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
 menu.add_row(['exit','stops ssh server and exit'])
 
 
-def banner():
+def cowsay_banner():
     '''
-    description: prints banner
+    description: prints cowsay banner
     '''
     print(BRIGHT_GREEN +  """
--------------------------------------------------------------
-| _____                                _____ _____ _   _    |
-||_   _|                              /  ___/  ___| | | |   |
-|  | | ___ _ __ _ __ ___  _   ___  __ \ `--.\ `--.| |_| |   |
-|  | |/ _ \ '__| '_ ` _ \| | | \ \/ /  `--. \`--. \  _  |   |
-|  | |  __/ |  | | | | | | |_| |>  <  /\__/ /\__/ / | | |   |
-|  \_/\___|_|  |_| |_| |_|\__,_/_/\_\ \____/\____/\_| |_/   |
-|                                A tool by Dhrumil Mistry   |
--------------------------------------------------------------
-~ ~ ~ ~ ~ A tool Specially Designed for Termux ~ ~ ~ ~ ~ ~ ~
--------------------------------------------------------------
++-----------------------------+
+|  ____________               |
+|< Termux-SSH >               | 
+| ------------                | 
+|        \   ^__^             |
+|         \  (oo)\_______     |
+|            (__)\       )\/\ |
+|                ||----w |    |
+|                ||     ||    |
++-----------------------------+
+|  A tool by Dhrumil Mistry   |
++-----------------------------+
 """)
 
 
@@ -81,7 +83,7 @@ def install_termux_req():
     '''
     description: installs requirements
     '''
-    banner()
+    cowsay_banner()
     print(BRIGHT_YELLOW + '\n[+] Installing required packages')
     
     print(BRIGHT_YELLOW + '\n[+] Updating...')
@@ -165,12 +167,13 @@ def Exception_Message(Exception):
     print(BRIGHT_RED + Exception)
 
 
-def exit_program():
+def exit_program(kill_ssh_server:bool = False):
     '''
     description: closes ssh server and exits the program
     '''
     print(BRIGHT_RED + '[+] Exiting Program... Please be patient...')
-    kill_ssh()
+    if kill_ssh_server:
+        kill_ssh()
     exit()
 
 

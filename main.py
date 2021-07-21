@@ -10,7 +10,7 @@ if name == 'nt':
 
 
 clear_console()
-banner()
+cowsay_banner()
 print(BRIGHT_YELLOW + "[Note] Termux-SSH only works in Termux Android Application.")
 
 
@@ -19,6 +19,9 @@ while True:
         cmd = input(BRIGHT_YELLOW +  "Termux-SSH >> " + RESET_COLORS).lower().strip()
 
         if cmd == 'exit':
+            exit_program(kill_ssh_server=True)
+
+        elif cmd == 'close':
             exit_program()
 
         elif cmd == 'help':
