@@ -12,17 +12,19 @@ if name == 'nt':
 banner()
 print(BRIGHT_YELLOW + "[Note] Termux-SSH only works in Termux Android Application.")
 
-IS_RUNNING = True
-while(IS_RUNNING):
+
+while True:
     try:
         cmd = input(BRIGHT_YELLOW +  "Termux-SSH >> " + RESET_COLORS).lower().strip()
 
         if cmd == 'exit':
             exit_program()
-            IS_RUNNING = False
 
         elif cmd == 'help':
             help()
+
+        elif cmd == 'clear':
+            clear_console()
 
         elif cmd == 'start':
             if start_ssh():

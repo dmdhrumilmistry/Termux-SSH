@@ -18,6 +18,7 @@ RESET_COLORS = Style.RESET_ALL
 # commands menu table
 menu = PrettyTable(['command', 'description'])
 menu.add_row(['start', 'starts SSH server'])
+menu.add_row(['clear', 'clears console screen'])
 menu.add_row(['port', 'checks on which port server is running'])
 menu.add_row(['user', 'get username'])
 menu.add_row(['genpass', 'generates new password for user'])
@@ -51,6 +52,10 @@ def help():
     description: prints help menu commands
     '''
     print(menu)
+
+
+def clear_console():
+    subprocess.call('clear', shell=True)
 
 
 def get_user():
