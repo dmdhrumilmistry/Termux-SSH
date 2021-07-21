@@ -3,17 +3,17 @@
 
 # Termux-SSH
 ```
-------------------------------------------------------------
- _____                                _____ _____ _   _ 
-|_   _|                              /  ___/  ___| | | |
-  | | ___ _ __ _ __ ___  _   ___  __ \ `--.\ `--.| |_| |
-  | |/ _ \ '__| '_ ` _ \| | | \ \/ /  `--. \`--. \  _  |
-  | |  __/ |  | | | | | | |_| |>  <  /\__/ /\__/ / | | |
-  \_/\___|_|  |_| |_| |_|\__,_/_/\_\ \____/\____/\_| |_/
-                                A tool by Dhrumil Mistry
-------------------------------------------------------------
-~~~~~~~~~~ A tool Specially Designed for Termux ~~~~~~~~~~~~
-------------------------------------------------------------
+-------------------------------------------------------------
+| _____                                _____ _____ _   _    |
+||_   _|                              /  ___/  ___| | | |   |
+|  | | ___ _ __ _ __ ___  _   ___  __ \ `--.\ `--.| |_| |   |
+|  | |/ _ \ '__| '_ ` _ \| | | \ \/ /  `--. \`--. \  _  |   |
+|  | |  __/ |  | | | | | | |_| |>  <  /\__/ /\__/ / | | |   |
+|  \_/\___|_|  |_| |_| |_|\__,_/_/\_\ \____/\____/\_| |_/   |
+|                                A tool by Dhrumil Mistry   |
+-------------------------------------------------------------
+~ ~ ~ ~ ~ A tool Specially Designed for Termux ~ ~ ~ ~ ~ ~ ~
+-------------------------------------------------------------
 ```
 Termux SSH helps you to setup SSH server on termux application on android, which helps you to execute tasks remotely.
 
@@ -45,20 +45,20 @@ Termux SSH helps you to setup SSH server on termux application on android, which
    
 6. install required packages
    ```
-   $ python3 -m pip install colorama
+   $ python -m pip install -r requiremensts.txt
    ```
    
 7. Run install python file
    ```
-   $ python3 install.py
+   $ python install.py
    ```
 
-8. Run main python file
+8. Run main python file to start Termux-SSH
    ```
-   $ python3 main.py
+   $ python main.py
    ```
    
-   If script executes without any error then Termux-SSH has been installed successfully
+   > If script executes without any error then Termux-SSH has been installed successfully
   
 ##
 
