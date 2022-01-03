@@ -119,7 +119,7 @@ def install_termux_req():
         print(_, end="...")
         time.sleep(0.35)
     print()
-
+    clear_console()
     cowsay_banner()
 
 
