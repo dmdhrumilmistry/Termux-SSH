@@ -29,6 +29,9 @@ while True:
 
         elif cmd == 'clear':
             clear_console()
+        
+        elif cmd == 'install':
+            install_cmd()
 
         elif cmd == 'start':
             if start_ssh():

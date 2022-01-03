@@ -18,6 +18,7 @@ RESET_COLORS = Style.RESET_ALL
 
 # commands menu table
 menu = PrettyTable(['command', 'description'])
+menu.add_row(['install', 'installs required tools'])
 menu.add_row(['start', 'starts SSH server'])
 menu.add_row(['clear', 'clears console screen'])
 menu.add_row(['port', 'checks on which port server is running'])
@@ -58,6 +59,9 @@ def help():
 
 
 def clear_console():
+    '''
+    description: clears console
+    '''
     subprocess.call('clear', shell=True)
 
 
@@ -77,6 +81,15 @@ def generate_passwd():
     print(BRIGHT_WHITE + f"\n[!] Creating new password for user {user} ")
     print(BRIGHT_YELLOW  +"Note: You will be asked to enter password, You must enter the same password while connecting.")
     subprocess.call('passwd', shell=True)
+
+
+def install_cmd():
+    '''
+    description: handles install command
+    '''
+    install_termux_req()
+    generate_passwd()
+
 
 
 def install_termux_req():
