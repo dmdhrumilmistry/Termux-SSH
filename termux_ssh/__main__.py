@@ -1,5 +1,5 @@
 #!usr/bin/env python3
-from termux import *
+from termux_ssh.termux import *
 from os import name
 from sys import exit
 
@@ -29,6 +29,9 @@ while True:
 
         elif cmd == 'clear':
             clear_console()
+        
+        elif cmd == 'install':
+            install_cmd()
 
         elif cmd == 'start':
             if start_ssh():
@@ -62,6 +65,10 @@ while True:
 
         else:
             print(BRIGHT_RED + '[!] INVALID COMMAND')
+
+    except (EOFError, KeyboardInterrupt):
+        print(BRIGHT_RED + "\n[-] User interruption detected!")
+        exit_program()
 
     except Exception as e:
         Exception_Message(e)
