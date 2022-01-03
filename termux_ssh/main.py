@@ -1,5 +1,5 @@
 #!usr/bin/env python3
-from termux import *
+from termux_ssh.termux import *
 from os import name
 from sys import exit
 
