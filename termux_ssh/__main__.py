@@ -67,8 +67,8 @@ while True:
             print(BRIGHT_RED + '[!] INVALID COMMAND')
 
     except (EOFError, KeyboardInterrupt):
-        print(BRIGHT_RED + "[-] User interruption detected! Exiting Program")
+        print(BRIGHT_RED + "\n[-] User interruption detected!")
         exit_program()
-        
+
     except Exception as e:
         Exception_Message(e)
