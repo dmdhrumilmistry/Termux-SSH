@@ -21,53 +21,34 @@ If your device is rooted then you can have full control over the android smartph
 
 ##
 
-### Screenshot
+## Screenshot
 <p align="center">
   <img src="https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/SafePass-Termux-CowsayBanner.jpg?raw=true" alt="Termux-SSH UI" />
 </p>
 
 ##
 
-### Installation
+## Installation
 
-1. Open Termux terminal
+- Open Termux terminal
 
-2. Install Python
-   ```
-   pkg install python
-   ```
-
-3. Install git package
-   ```
-   pkg install git
+- Install Python and git packages
+   ```bash
+   pkg install python git -y
    ```
    
-4. copy the url from the address bar and clone the Termux-SSH
-   ```
-   git clone https://github.com/dmdhrumilmistry/Termux-SSH
-   ```
-   
-5. Change to Termux-ssh directory
-   ```
-   cd Termux-SSH
+- Install required packages
+   ```bash
+   pip install git+https://github.com/dmdhrumilmistry/Termux-SSH.git
    ```
    
-6. install required packages
+- Start Termux-SSH and Install required tools
    ```
-   python -m pip install -r requirements.txt
+   python -m termux_ssh
    ```
-   
-7. Run install python file
    ```
-   python install.py
+   install
    ```
-
-8. Run main python file to start Termux-SSH
-   ```
-   python main.py
-   ```
-   
-   > If script executes without any error then Termux-SSH has been installed successfully
   
 ##
 
