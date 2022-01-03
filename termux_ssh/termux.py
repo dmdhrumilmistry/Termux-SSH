@@ -1,10 +1,13 @@
 #!usr/bin/env python3
-import subprocess
+from colorama import Style, Fore
+from prettytable import PrettyTable
+from sys import exit
+
+
 import colorama
 import re
-from prettytable import PrettyTable
-from colorama import Style, Fore
-from sys import exit
+import subprocess
+import time
 
 # for terminal colors
 colorama.init(autoreset=True)
@@ -87,6 +90,7 @@ def install_cmd():
     '''
     description: handles install command
     '''
+    clear_console()
     install_termux_req()
     generate_passwd()
 
@@ -97,18 +101,27 @@ def install_termux_req():
     description: installs requirements
     '''
     cowsay_banner()
-    print(BRIGHT_YELLOW + '\n[+] Installing required packages')
+    print(BRIGHT_YELLOW + '\n[*] Installing required packages')
     
-    print(BRIGHT_YELLOW + '\n[+] Updating...')
+    print(BRIGHT_YELLOW + '\n[*] Updating...')
     subprocess.call("pkg update -y", shell=True)
     
-    print(BRIGHT_YELLOW + '\n[+] Upgrading...')
+    print(BRIGHT_YELLOW + '\n[*] Upgrading...')
     subprocess.call("pkg upgrade -y", shell=True)
     
-    print(BRIGHT_YELLOW + '\n[+] Installing requirements ...')
+    print(BRIGHT_YELLOW + '\n[*] Installing requirements ...')
     subprocess.call("pkg install nmap openssh termux-auth termux-api -y", shell=True)
     
-    print(BRIGHT_YELLOW + '\n[+] Installation completed!!\n')
+    print(BRIGHT_YELLOW + '\n[*] Installation completed!!\n')
+    
+    print(BRIGHT_YELLOW + "[*] Clearing Screen in...", end="")
+    for _ in range(5, 0, -1):
+        print(_, end="...")
+        time.sleep(0.35)
+    print()
+
+    cowsay_banner()
+
 
 
 def start_ssh():
@@ -166,9 +179,9 @@ def restart_ssh():
     description: restarts ssh server
     '''
     if kill_ssh():
-        print(Style.BRIGHT + '[+] SSH Server Successfully Killed.')
+        print(Style.BRIGHT + '[*] SSH Server Successfully Killed.')
     if start_ssh():
-        print(Style.BRIGHT + '[+] SSH Server Successfully Started.')
+        print(Style.BRIGHT + '[*] SSH Server Successfully Started.')
 
 
 def Exception_Message(Exception):
@@ -176,7 +189,7 @@ def Exception_Message(Exception):
     description: handles exception by printing message and exception
     '''
     print(BRIGHT_RED + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
-    print(BRIGHT_YELLOW + '[+] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
+    print(BRIGHT_YELLOW + '[*] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
     print(BRIGHT_RED + Exception)
 
 
@@ -184,7 +197,7 @@ def exit_program(kill_ssh_server:bool = False):
     '''
     description: closes ssh server and exits the program
     '''
-    print(BRIGHT_RED + '[+] Exiting Program... Please be patient...')
+    print(BRIGHT_RED + '[*] Exiting Program... Please be patient...')
     if kill_ssh_server:
         kill_ssh()
     exit()
