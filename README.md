@@ -34,7 +34,7 @@ If your device is rooted then you can have full control over the android smartph
 
 - Execute command in Termux App
   ```
-  curl https://raw.githubusercontent.com/dmdhrumilmistry/Termux-SSH/main/install.sh | bash
+  cd $HOME && mkdir tmp && cd tmp && curl -O https://raw.githubusercontent.com/dmdhrumilmistry/Termux-SSH/main/install.sh && chmod +x $HOME/tmp/install.sh && ./install.sh; cd $HOME ;rm -rf $HOME/tmp
   ```
 
 ### Maually
