@@ -30,6 +30,15 @@ If your device is rooted then you can have full control over the android smartph
 
 ## Installation
 
+### Using bash script
+
+- Execute command in Termux App
+  ```
+  curl https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/install.sh?raw=True | bash
+  ```
+
+### Maually
+
 - Open Termux terminal
 
 - Install Python and git packages
