@@ -109,9 +109,9 @@ def install_cmd():
     description: handles install command
     '''
     clear_console()
-    # install_termux_req()
+    install_termux_req()
     conf_tor()
-    # generate_passwd()
+    generate_passwd()
 
 
 
