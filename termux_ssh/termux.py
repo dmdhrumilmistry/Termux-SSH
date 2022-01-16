@@ -1,10 +1,13 @@
 #!usr/bin/env python3
+from email.policy import default
+import textwrap
 from colorama import Style, Fore
 from prettytable import PrettyTable
 from sys import exit
 
 
 import colorama
+import  os
 import re
 import subprocess
 import time
@@ -29,6 +32,8 @@ menu.add_row(['user', 'get username'])
 menu.add_row(['genpass', 'generates new password for user'])
 menu.add_row(['wlan ip', 'get wlan ip of the device'])
 menu.add_row(['connect cmd', 'connect to this using using command printed'])
+menu.add_row(['torssh','start ssh service on tor network'])
+menu.add_row(['stoptor','exit tor network'])
 menu.add_row(['restart', 'restarts ssh server'])
 menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
 menu.add_row(['exit','stops ssh server and exit'])
@@ -92,6 +97,7 @@ def install_cmd():
     '''
     clear_console()
     install_termux_req()
+    conf_tor()
     generate_passwd()
 
 
@@ -110,7 +116,7 @@ def install_termux_req():
     subprocess.call("pkg upgrade -y", shell=True)
     
     print(BRIGHT_YELLOW + '\n[*] Installing requirements ...')
-    subprocess.call("pkg install nmap openssh termux-auth termux-api -y", shell=True)
+    subprocess.call("pkg install nmap openssh termux-auth termux-api tor proxychains-ng -y", shell=True)
     
     print(BRIGHT_YELLOW + '\n[*] Installation completed!!\n')
     
@@ -122,6 +128,76 @@ def install_termux_req():
     clear_console()
     cowsay_banner()
 
+
+def conf_tor():
+    '''
+    description: configure termux-ssh for tor network
+    returns: bool
+    '''
+    HOME = os.environ["HOME"]
+    ALIAS_FILE = os.path.join(HOME, ".tor_ssh_aliases")
+    SHELL = os.environ['SHELL'].split('/')[-1]
+    
+    TOR_SSH_DIR = os.path.join(os.environ['PREFIX'], "var", 'lib','tor','hidden_ssh')
+    HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
+    TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
+    
+    # configure shell
+    shell_conf = {'bash':'.bashrc', 'zsh':'.zshrc'}
+    SHELL_RC_FILE = os.path.join(HOME, shell_conf.get(SHELL, ''))
+    
+    # create aliases
+    print(BRIGHT_YELLOW + "Generating aliases...")
+    aliases = textwrap.dedent(f'''
+    ###################
+    # TOR SSH aliases
+
+    alias tor-ssh-start="torrc -f {TORRC_FILE} &;sshd;"
+    alias tor-ssh-stop="pkill -9 tor"
+    ''')
+    with open(ALIAS_FILE, 'w+') as f:
+        f.write(aliases)
+
+    if SHELL_RC_FILE != "":
+        with open(SHELL_RC_FILE, 'a+') as f:
+            f.write(f'source {ALIAS_FILE}')
+        print(BRIGHT_YELLOW + "[*] Restart Termux before using SSH over TOR.")
+    else:
+        print(BRIGHT_RED + f"[X] add alias file {ALIAS_FILE} to .bashrc/.zshrc file manually.")
+
+    # TORRC CONF
+    print(BRIGHT_YELLOW + '\n[*] Generating torrc file ...')
+
+    torrc = textwrap.dedent('''
+    ## Enable TOR SOCKS proxy
+    SOCKSPort 127.0.0.1:9050
+
+    ## Hidden Service: SSH
+    HiddenServiceDir /data/data/com.termux/files/home/.tor/hidden_ssh
+    HiddenServicePort 22 127.0.0.1:8022''')
+
+    # write conf file to torrc
+    with open(TORRC_FILE, 'w+') as conf_file:
+        conf_file.write(torrc)
+    
+    print(BRIGHT_YELLOW + '\n[*] Generating hostname for TOR Network ...')
+    subprocess.call(['tor','-f', str(TORRC_FILE), '&'], shell=True)
+
+    print(BRIGHT_YELLOW + '\n[*] Waiting for 10s for hostname to be generated ...')
+    time.sleep(10)
+
+    print(BRIGHT_YELLOW + '\n[*] Killing TOR service ...')
+    subprocess.call(["pkill", "-9", "tor"], shell=True)
+
+    print(BRIGHT_YELLOW + '\n[*] Extracting hostname ...')
+    if os.path.isfile(HOSTNAME_FILE):
+        with open(HOSTNAME_FILE, 'r') as f:
+            hostname = f.read()
+            if hostname != "":
+                print(BRIGHT_GREEN + f"HOSTNAME : {hostname}")
+                return True
+    print(BRIGHT_RED + "Hostname has not been generated. run tor manually to generate hostname")
+    return False
 
 
 def start_ssh():
@@ -218,3 +294,19 @@ def show_connect_command():
 
     print(BRIGHT_WHITE +'Use below command to connect:')
     print(BRIGHT_LYELLOW + f'ssh {user}@{wlan_ip} -p {ssh_port}\n')
+
+
+def start_tor_ssh():
+    '''
+    description: starts ssh over 
+    returns: bool
+    '''
+    return bool(os.system("tor-ssh-start"))
+
+
+def stop_tor():
+    '''
+    description: stops tor network
+    returns: bool
+    '''
+    return bool(os.system("tor-ssh-stop"))
