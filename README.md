@@ -22,9 +22,7 @@ If your device is rooted then you can have full control over the android smartph
 ##
 
 ## Screenshot
-<p align="center">
-  <img src="https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/SafePass-Termux-CowsayBanner.jpg?raw=true" alt="Termux-SSH UI" />
-</p>
+[! Termux-SSH](https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/Termux-SSH-v1.1.0.png?raw=true)
 
 ##
 
@@ -60,6 +58,26 @@ If your device is rooted then you can have full control over the android smartph
    ```
   
 ##
+
+## Commands List
+|command|description|
+|:-----:|:----------|
+|install|installs required tools|
+|start|starts SSH server|
+|clear|clears console screen|
+|port|checks on which port server is running|
+|user|get username|
+|genpass|generates new password for user|
+|wlanip|get wlan ip of the device|
+|connectcmd|connect to this using using command printed|
+|torssh|start ssh service on tor network|
+|torhost|get TOR network hostname|
+|stoptor|exit tor network|
+|restart|restarts ssh server|
+|close|exits Termux-SSH without stopping SSH server|
+|exit|stops ssh server and exit|
+
+
 
 
 ### Features
