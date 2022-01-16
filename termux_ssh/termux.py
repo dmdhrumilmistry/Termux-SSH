@@ -1,5 +1,4 @@
 #!usr/bin/env python3
-from email.policy import default
 import textwrap
 from colorama import Style, Fore
 from prettytable import PrettyTable
@@ -11,6 +10,7 @@ import  os
 import re
 import subprocess
 import time
+
 
 # for terminal colors
 colorama.init(autoreset=True)
@@ -38,11 +38,20 @@ menu.add_row(['restart', 'restarts ssh server'])
 menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
 menu.add_row(['exit','stops ssh server and exit'])
 
-# tor commands
-tor_start=None
-tor_stop=None
+
+# tor commands and confs
+HOME = os.environ["HOME"]
+ALIAS_FILE = os.path.join(HOME, ".tor_ssh_aliases")
+SHELL = os.environ['SHELL'].split('/')[-1]
+
+TOR_SSH_DIR = os.path.join(os.environ['PREFIX'], "var", 'lib','tor','hidden_ssh')
+HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
+TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
+tor_start = f'tor -f {TORRC_FILE} &; sshd &'
+tor_stop=f'pkill -9 tor'
 
 
+# functions
 def cowsay_banner():
     '''
     description: prints cowsay banner
@@ -138,15 +147,6 @@ def conf_tor():
     description: configure termux-ssh for tor network
     returns: bool
     '''
-    HOME = os.environ["HOME"]
-    ALIAS_FILE = os.path.join(HOME, ".tor_ssh_aliases")
-    SHELL = os.environ['SHELL'].split('/')[-1]
-    
-    TOR_SSH_DIR = os.path.join(os.environ['PREFIX'], "var", 'lib','tor','hidden_ssh')
-    HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
-    TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
-    
-
     # create directory
     os.system(f"mkdir -p {TOR_SSH_DIR}")
 
@@ -156,14 +156,12 @@ def conf_tor():
     
     # create aliases
     print(BRIGHT_YELLOW + "[*] Generating aliases...")
-    tor_start = f"tor -f {TORRC_FILE} &;sshd &;cat {HOSTNAME_FILE}"
-    tor_stop=f"pkill -9 tor"
     aliases = textwrap.dedent(f'''
     ###################
     # TOR SSH aliases
 
-    alias tor-ssh-start={tor_start}
-    alias tor-ssh-stop={tor_stop}''')
+    alias tor-ssh-start="{tor_start}"
+    alias tor-ssh-stop="{tor_stop}"''')
     with open(ALIAS_FILE, 'w') as f:
         f.write(aliases)
 
@@ -309,12 +307,11 @@ def start_tor_ssh():
     '''
     description: starts ssh over 
     '''
-    os.system("")
-    
+    subprocess.call(tor_start, shell=True, executable=os.environ["SHELL"])
 
 
 def stop_tor():
     '''
     description: stops tor network
     '''
-    subprocess.call("tor-ssh-stop", shell=True)
+    subprocess.call(tor_stop, shell=True, executable=os.environ["SHELL"])
