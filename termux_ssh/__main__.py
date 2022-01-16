@@ -61,16 +61,12 @@ while True:
             show_connect_command()
         
         elif cmd == 'torssh':
-            if start_tor_ssh():
-                print(BRIGHT_GREEN + "[*] SSH over TOR started successfully.")
-            else:
-                print(BRIGHT_RED + "[X] Unable to start SSH over TOR")
+            start_tor_ssh()
+            print(BRIGHT_GREEN + "[*] SSH can be connected over TOR.")
 
         elif cmd == 'stoptor':
-            if stop_tor():
-                print(BRIGHT_GREEN + "[*] SSH over TOR stopped successfully.")
-            else:
-                print(BRIGHT_RED + "[X] Unable to stop SSH over TOR")
+            stop_tor()
+            print(BRIGHT_GREEN + "[*] SSH over TOR stopped successfully.")
 
         elif cmd == 'restart':
             restart_ssh()

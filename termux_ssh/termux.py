@@ -38,6 +38,10 @@ menu.add_row(['restart', 'restarts ssh server'])
 menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
 menu.add_row(['exit','stops ssh server and exit'])
 
+# tor commands
+tor_start=None
+tor_stop=None
+
 
 def cowsay_banner():
     '''
@@ -96,9 +100,9 @@ def install_cmd():
     description: handles install command
     '''
     clear_console()
-    install_termux_req()
+    # install_termux_req()
     conf_tor()
-    generate_passwd()
+    # generate_passwd()
 
 
 
@@ -142,25 +146,30 @@ def conf_tor():
     HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
     TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
     
+
+    # create directory
+    os.system(f"mkdir -p {TOR_SSH_DIR}")
+
     # configure shell
     shell_conf = {'bash':'.bashrc', 'zsh':'.zshrc'}
     SHELL_RC_FILE = os.path.join(HOME, shell_conf.get(SHELL, ''))
     
     # create aliases
-    print(BRIGHT_YELLOW + "Generating aliases...")
+    print(BRIGHT_YELLOW + "[*] Generating aliases...")
+    tor_start = f"tor -f {TORRC_FILE} &;sshd &;cat {HOSTNAME_FILE}"
+    tor_stop=f"pkill -9 tor"
     aliases = textwrap.dedent(f'''
     ###################
     # TOR SSH aliases
 
-    alias tor-ssh-start="torrc -f {TORRC_FILE} &;sshd;"
-    alias tor-ssh-stop="pkill -9 tor"
-    ''')
-    with open(ALIAS_FILE, 'w+') as f:
+    alias tor-ssh-start={tor_start}
+    alias tor-ssh-stop={tor_stop}''')
+    with open(ALIAS_FILE, 'w') as f:
         f.write(aliases)
 
     if SHELL_RC_FILE != "":
         with open(SHELL_RC_FILE, 'a+') as f:
-            f.write(f'source {ALIAS_FILE}')
+            f.write(f'\nsource {ALIAS_FILE}\n')
         print(BRIGHT_YELLOW + "[*] Restart Termux before using SSH over TOR.")
     else:
         print(BRIGHT_RED + f"[X] add alias file {ALIAS_FILE} to .bashrc/.zshrc file manually.")
@@ -168,26 +177,26 @@ def conf_tor():
     # TORRC CONF
     print(BRIGHT_YELLOW + '\n[*] Generating torrc file ...')
 
-    torrc = textwrap.dedent('''
+    torrc = textwrap.dedent(f'''
     ## Enable TOR SOCKS proxy
     SOCKSPort 127.0.0.1:9050
 
     ## Hidden Service: SSH
-    HiddenServiceDir /data/data/com.termux/files/home/.tor/hidden_ssh
-    HiddenServicePort 22 127.0.0.1:8022''')
+    HiddenServiceDir {TOR_SSH_DIR}
+    HiddenServicePort 22 127.0.0.1:8022\n\n''')
 
     # write conf file to torrc
     with open(TORRC_FILE, 'w+') as conf_file:
         conf_file.write(torrc)
     
     print(BRIGHT_YELLOW + '\n[*] Generating hostname for TOR Network ...')
-    subprocess.call(['tor','-f', str(TORRC_FILE), '&'], shell=True)
+    os.system(f'tor -f {TORRC_FILE} &')
 
-    print(BRIGHT_YELLOW + '\n[*] Waiting for 10s for hostname to be generated ...')
-    time.sleep(10)
+    print(BRIGHT_YELLOW + '\n[*] Waiting for 30s for hostname to be generated ...')
+    time.sleep(30)
 
     print(BRIGHT_YELLOW + '\n[*] Killing TOR service ...')
-    subprocess.call(["pkill", "-9", "tor"], shell=True)
+    os.system("pkill -9 tor")
 
     print(BRIGHT_YELLOW + '\n[*] Extracting hostname ...')
     if os.path.isfile(HOSTNAME_FILE):
@@ -266,7 +275,7 @@ def Exception_Message(Exception):
     '''
     print(BRIGHT_RED + '[-] An Error occured while running the script, please create an issue on github to resolve issue and make script better.')
     print(BRIGHT_YELLOW + '[*] Github URL: https://github.com/dmrdhrumilmistry/Termux-SSH ')
-    print(BRIGHT_RED + Exception)
+    print(f'{BRIGHT_RED}{Exception}')
 
 
 def exit_program(kill_ssh_server:bool = False):
@@ -299,14 +308,13 @@ def show_connect_command():
 def start_tor_ssh():
     '''
     description: starts ssh over 
-    returns: bool
     '''
-    return bool(os.system("tor-ssh-start"))
+    os.system("")
+    
 
 
 def stop_tor():
     '''
     description: stops tor network
-    returns: bool
     '''
-    return bool(os.system("tor-ssh-stop"))
+    subprocess.call("tor-ssh-stop", shell=True)
