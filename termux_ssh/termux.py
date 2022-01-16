@@ -33,6 +33,7 @@ menu.add_row(['genpass', 'generates new password for user'])
 menu.add_row(['wlan ip', 'get wlan ip of the device'])
 menu.add_row(['connect cmd', 'connect to this using using command printed'])
 menu.add_row(['torssh','start ssh service on tor network'])
+menu.add_row(['torhost','get TOR network hostname'])
 menu.add_row(['stoptor','exit tor network'])
 menu.add_row(['restart', 'restarts ssh server'])
 menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
@@ -206,6 +207,13 @@ def conf_tor():
                 return True
     print(BRIGHT_RED + "Hostname has not been generated. run tor manually to generate hostname")
     return False
+
+
+def get_tor_hostname():
+    '''
+    description: gets tor hostname which will be used to connect
+    '''
+    return subprocess.check_output(f"cat {HOSTNAME_FILE}", shell=True, executable=os.environ["SHELL"]).decode('utf-8')
 
 
 def start_ssh():

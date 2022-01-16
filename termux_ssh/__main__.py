@@ -63,6 +63,13 @@ while True:
         elif cmd == 'torssh':
             start_tor_ssh()
             print(BRIGHT_GREEN + "[*] SSH can be connected over TOR.")
+        
+        elif cmd == 'torhost':
+            hostname = get_tor_hostname()
+            if hostname != "":
+                print(BRIGHT_GREEN + f"[*] Hostname : {hostname}")
+            else:
+                print(BRIGHT_RED + f"[X] Cannot find hostname, try using install command.")
 
         elif cmd == 'stoptor':
             stop_tor()
