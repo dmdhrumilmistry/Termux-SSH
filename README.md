@@ -22,7 +22,7 @@ If your device is rooted then you can have full control over the android smartph
 ##
 
 ## Screenshot
-[! Termux-SSH](https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/Termux-SSH-v1.1.0.png?raw=true)
+![Termux-SSH](https://github.com/dmdhrumilmistry/Termux-SSH/blob/main/.images/Termux-SSH-v1.1.0.png?raw=true)
 
 ##
 
@@ -119,7 +119,7 @@ If your device is rooted then you can have full control over the android smartph
   
   ##
   ### Video Tutorial
-  
+  - For Previous Version
   <a href = "https://www.youtube.com/watch?v=V_m3vHmOY3c" target = "_blank"><img src = "https://img.shields.io/badge/YouTube%20Video-For%20video%20click%20here-bd2c00"></a><br>
   
   ### Support Me on:
