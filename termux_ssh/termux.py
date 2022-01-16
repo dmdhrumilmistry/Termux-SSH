@@ -147,7 +147,8 @@ def conf_tor():
     description: configure termux-ssh for tor network
     returns: bool
     '''
-    # create directory
+    # delete and create new directory
+    os.system(f"rm -rf {TOR_SSH_DIR}")
     os.system(f"mkdir -p {TOR_SSH_DIR}")
 
     # configure shell
