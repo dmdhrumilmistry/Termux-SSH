@@ -53,10 +53,10 @@ ALIAS_FILE = os.path.join(HOME, ".tor_ssh_aliases")
 SHELL = os.environ['SHELL'].split('/')[-1]
 
 TOR_SSH_DIR = os.path.join(
-    os.environ['PREFIX'], "var", 'lib', 'tor', 'hidden_ssh')
+    os.environ['PREFIX'], 'var', 'lib', 'tor', 'hidden_ssh')
 HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
 TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
-tor_start = f'tor -f {TORRC_FILE} &; sshd &'
+tor_start = f'tor -f {TORRC_FILE} &'
 tor_stop = f'pkill -9 tor'
 
 
@@ -77,7 +77,7 @@ def cowsay_banner():
 |                ||     ||    |
 +-----------------------------+
 |Author:      {__author__} |
-|Version:     {__version__}             |
+|Version:     {__version__}           |
 +-----------------------------+
 """)
 
@@ -233,7 +233,7 @@ def start_ssh():
     returns: bool
     '''
     try:
-        subprocess.call("sshd", shell=True)
+        subprocess.call("sshd &", shell=True)
         return True
     except Exception as e:
         Exception_Message(e)
@@ -329,6 +329,7 @@ def start_tor_ssh():
     '''
     description: starts ssh over 
     '''
+    start_ssh()
     subprocess.call(tor_start, shell=True, executable=os.environ["SHELL"])
 
 
