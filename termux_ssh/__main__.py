@@ -71,7 +71,7 @@ while True:
             else:
                 print(BRIGHT_RED + f"[X] Cannot find hostname, try using install command.")
 
-        elif cmd == 'stoptor':
+        elif cmd == 'torstop':
             stop_tor()
             print(BRIGHT_GREEN + "[*] SSH over TOR stopped successfully.")
 
