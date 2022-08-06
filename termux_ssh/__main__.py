@@ -53,11 +53,11 @@ while True:
         elif cmd == 'genpass':
             generate_passwd()
 
-        elif cmd == 'wlan ip':
+        elif cmd == 'wlanip':
             wlan_ip = get_wlan_ip()
             print(BRIGHT_WHITE + f'[*] WLAN IP : {wlan_ip}')
 
-        elif cmd == 'connect cmd':
+        elif cmd == 'conncmd':
             show_connect_command()
         
         elif cmd == 'torssh':

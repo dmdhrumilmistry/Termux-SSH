@@ -10,6 +10,7 @@ import  os
 import re
 import subprocess
 import time
+import netifaces as nic
 
 
 # for terminal colors
@@ -30,8 +31,8 @@ menu.add_row(['clear', 'clears console screen'])
 menu.add_row(['port', 'checks on which port server is running'])
 menu.add_row(['user', 'get username'])
 menu.add_row(['genpass', 'generates new password for user'])
-menu.add_row(['wlan ip', 'get wlan ip of the device'])
-menu.add_row(['connect cmd', 'connect to this using using command printed'])
+menu.add_row(['wlanip', 'get wlan ip of the device'])
+menu.add_row(['conncmd', 'connect to this using using command printed'])
 menu.add_row(['torssh','start ssh service on tor network'])
 menu.add_row(['torhost','get TOR network hostname'])
 menu.add_row(['stoptor','exit tor network'])
@@ -247,10 +248,7 @@ def get_wlan_ip():
     description: get wlan0 device ip assigned by router/DHCP
     returns: str or None
     '''
-    wlan_info = subprocess.check_output("ifconfig wlan0", shell=True).decode('utf-8')
-    wlan_inet_regex = r'(?:inet\s*)(.*)(?:netmask)'
-    wlan_inet_ip = re.search(wlan_inet_regex, wlan_info).group(1).strip()
-    return wlan_inet_ip
+    return nic.ifaddresses('wlan0')[nic.AF_INET][0]['addr']
 
 
 def kill_ssh():
