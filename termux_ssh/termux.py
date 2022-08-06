@@ -330,7 +330,7 @@ def start_tor_ssh():
     description: starts ssh over 
     '''
     start_ssh()
-    subprocess.call(tor_start, shell=True, executable=os.environ["SHELL"])
+    subprocess.call(tor_start, shell=True, executable=os.environ["SHELL"], stdout=subprocess.PIPE)
 
 
 def stop_tor():
