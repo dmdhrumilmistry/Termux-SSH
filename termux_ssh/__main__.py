@@ -19,7 +19,7 @@ while True:
         cmd = input(BRIGHT_YELLOW +  "Termux-SSH >> " + RESET_COLORS).lower().strip()
 
         if cmd == 'exit':
-            exit_program(kill_ssh_server=True)
+            exit_program(kill_ssh_server=True, kill_tor_server=True)
 
         elif cmd == 'close':
             exit_program()
@@ -82,7 +82,7 @@ while True:
             print(BRIGHT_RED + '[!] INVALID COMMAND')
 
     except (EOFError, KeyboardInterrupt):
-        print(BRIGHT_RED + "\n[-] User interruption detected!")
+        print(BRIGHT_RED + "\n[-] User interruption detected! Services will be running in background")
         exit_program()
 
     except Exception as e:
