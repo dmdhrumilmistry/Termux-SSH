@@ -9,8 +9,8 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='Termux-SSH',
-    author="Dhrumil Mistry",
-    version='1.1.0',
+    author='Dhrumil Mistry',
+    version='1.1.1',
     license='MIT License',
     description='Termux SSH helps you to setup SSH server on termux application on android, which helps you to execute tasks remotely through terminal/cmd/powershell/termux.',
     long_description=long_description,

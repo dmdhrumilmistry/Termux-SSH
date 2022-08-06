@@ -1,4 +1,8 @@
 #!usr/bin/env python3
+
+__version__ = '1.1.1'
+__author__ = 'dmdhrumilmistry'
+
 import textwrap
 from colorama import Style, Fore
 from prettytable import PrettyTable
@@ -11,6 +15,8 @@ import re
 import subprocess
 import time
 import netifaces as nic
+
+
 
 
 # for terminal colors
@@ -59,7 +65,7 @@ def cowsay_banner():
     '''
     description: prints cowsay banner
     '''
-    print(BRIGHT_GREEN + """
+    print(BRIGHT_GREEN + f"""
 +-----------------------------+
 |  ____________               |
 |< Termux-SSH >               | 
@@ -70,7 +76,8 @@ def cowsay_banner():
 |                ||----w |    |
 |                ||     ||    |
 +-----------------------------+
-|  A tool by Dhrumil Mistry   |
+|Author:      {__author__} |
+|Version:     {__version__}             |
 +-----------------------------+
 """)
 
