@@ -19,7 +19,7 @@ while True:
         cmd = input(BRIGHT_YELLOW +  "Termux-SSH >> " + RESET_COLORS).lower().strip()
 
         if cmd == 'exit':
-            exit_program(kill_ssh_server=True)
+            exit_program(kill_ssh_server=True, kill_tor_server=True)
 
         elif cmd == 'close':
             exit_program()
@@ -53,11 +53,11 @@ while True:
         elif cmd == 'genpass':
             generate_passwd()
 
-        elif cmd == 'wlan ip':
+        elif cmd == 'wlanip':
             wlan_ip = get_wlan_ip()
             print(BRIGHT_WHITE + f'[*] WLAN IP : {wlan_ip}')
 
-        elif cmd == 'connect cmd':
+        elif cmd == 'conncmd':
             show_connect_command()
         
         elif cmd == 'torssh':
@@ -71,7 +71,7 @@ while True:
             else:
                 print(BRIGHT_RED + f"[X] Cannot find hostname, try using install command.")
 
-        elif cmd == 'stoptor':
+        elif cmd == 'torstop':
             stop_tor()
             print(BRIGHT_GREEN + "[*] SSH over TOR stopped successfully.")
 
@@ -82,7 +82,7 @@ while True:
             print(BRIGHT_RED + '[!] INVALID COMMAND')
 
     except (EOFError, KeyboardInterrupt):
-        print(BRIGHT_RED + "\n[-] User interruption detected!")
+        print(BRIGHT_RED + "\n[-] User interruption detected! Services will be running in background")
         exit_program()
 
     except Exception as e:
