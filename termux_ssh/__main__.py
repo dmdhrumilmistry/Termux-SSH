@@ -21,6 +21,7 @@ from .termux import (
     start_ssh,
     start_tor_ssh,
     stop_tor,
+    help,
     install_cmd,
 )
 
