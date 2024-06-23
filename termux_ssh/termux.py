@@ -1,22 +1,16 @@
-#!usr/bin/env python3
+from sys import exit
+from time import sleep
 
-__version__ = '1.1.1'
-__author__ = 'dmdhrumilmistry'
-
-import textwrap
 from colorama import Style, Fore
 from prettytable import PrettyTable
-from sys import exit
 
 
 import colorama
+import textwrap
 import os
 import re
 import subprocess
-import time
 import netifaces as nic
-
-
 
 
 # for terminal colors
@@ -41,7 +35,7 @@ menu.add_row(['wlanip', 'get wlan ip of the device'])
 menu.add_row(['conncmd', 'connect to this using using command printed'])
 menu.add_row(['torssh', 'start ssh service on tor network'])
 menu.add_row(['torhost', 'get TOR network hostname'])
-menu.add_row(['stoptor', 'exit tor network'])
+menu.add_row(['torstop', 'exit tor network'])
 menu.add_row(['restart', 'restarts ssh server'])
 menu.add_row(['close', 'exits Termux-SSH without stopping SSH server'])
 menu.add_row(['exit', 'stops ssh server and exit'])
@@ -49,15 +43,17 @@ menu.add_row(['exit', 'stops ssh server and exit'])
 
 # tor commands and confs
 HOME = os.environ["HOME"]
+PREFIX = os.environ.get("PREFIX", "/data/data/com.termux/files/usr/")
 ALIAS_FILE = os.path.join(HOME, ".tor_ssh_aliases")
 SHELL = os.environ['SHELL'].split('/')[-1]
 
-TOR_SSH_DIR = os.path.join(
-    os.environ['PREFIX'], 'var', 'lib', 'tor', 'hidden_ssh')
+SSH_CONFIG_FILE = os.path.join(PREFIX, 'etc', 'ssh', 'sshd_config')
+
+TOR_SSH_DIR = os.path.join(PREFIX, 'var', 'lib', 'tor', 'hidden_ssh')
 HOSTNAME_FILE = os.path.join(TOR_SSH_DIR, "hostname")
 TORRC_FILE = os.path.join(TOR_SSH_DIR, 'torrc')
 tor_start = f'tor -f {TORRC_FILE} &'
-tor_stop = f'pkill -9 tor'
+tor_stop = 'pkill -9 tor'
 
 
 # functions
@@ -65,7 +61,7 @@ def cowsay_banner():
     '''
     description: prints cowsay banner
     '''
-    print(BRIGHT_GREEN + f"""
+    print(BRIGHT_GREEN + r"""
 +-----------------------------+
 |  ____________               |
 |< Termux-SSH >               | 
@@ -76,8 +72,7 @@ def cowsay_banner():
 |                ||----w |    |
 |                ||     ||    |
 +-----------------------------+
-|Author:      {__author__} |
-|Version:     {__version__}           |
+|Author:      dmdhrumilmistry |
 +-----------------------------+
 """)
 
@@ -146,7 +141,7 @@ def install_termux_req():
     print(BRIGHT_YELLOW + "[*] Clearing Screen in...", end="")
     for _ in range(5, 0, -1):
         print(_, end="...")
-        time.sleep(0.35)
+        sleep(0.35)
     print()
     clear_console()
     cowsay_banner()
@@ -204,7 +199,7 @@ def conf_tor():
 
     print(BRIGHT_YELLOW +
           '\n[*] Waiting for 30s for hostname to be generated ...')
-    time.sleep(30)
+    sleep(30)
 
     print(BRIGHT_YELLOW + '\n[*] Killing TOR service ...')
     os.system("pkill -9 tor")
@@ -236,7 +231,7 @@ def start_ssh():
         subprocess.call("sshd &", shell=True)
         return True
     except Exception as e:
-        Exception_Message(e)
+        exception_message(e)
         return False
 
 
@@ -246,12 +241,15 @@ def get_ssh_port():
     returns: str or None
     '''
     if start_ssh():
-        port_result = subprocess.check_output(
-            "nmap localhost", shell=True).decode('utf-8')
-        port_regex = r'(.*)(?:open\s*oa-system)'
-        tcp_port_details = re.search(port_regex, port_result).group(0)
-        tcp_port = re.search(r'\d*', tcp_port_details).group(0)
-        return tcp_port
+        # get port from config file: $PREFIX/etc/ssh/sshd_config 
+        ssh_config = ''
+        with open(SSH_CONFIG_FILE, 'r') as f:
+            ssh_config = f.read()
+        
+        matches = re.search(r'Port\s+(\d+)', ssh_config)
+        port = matches.group(1) if matches else '8022'
+        
+        return port
 
 
 def get_wlan_ip():
@@ -271,7 +269,7 @@ def kill_ssh():
         subprocess.call("pkill sshd", shell=True)
         return True
     except Exception as e:
-        Exception_Message(e)
+        exception_message(e)
         return False
 
 
@@ -285,7 +283,7 @@ def restart_ssh():
         print(Style.BRIGHT + '[*] SSH Server Successfully Started.')
 
 
-def Exception_Message(Exception):
+def exception_message(exception: Exception):
     '''
     description: handles exception by printing message and exception
     '''
